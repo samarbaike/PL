@@ -6,17 +6,14 @@ weight = sample(range(1, 713), 3)
 while sum(weight) != 713:
     weight = [randrange (1, 300) for i in range(3)]
 
-previous = set(distance)
-
-def relocate(current, used):
+def relocate(current):
     
     new_locations = []
     for l in current:
         while True:
             new = randrange(1, 7)
-            if new != l and new not in used:
+            if new not in current and new not in new_locations:
                 new_locations.append(new)
-                used.add(new)  # Add to the set of used locations
                 break
     return new_locations
 
