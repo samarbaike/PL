@@ -6,6 +6,7 @@ weight = sample(range(1, 713), 3)
 while sum(weight) != 713:
     weight = [randrange (1, 300) for i in range(3)]
 
+
 def relocate(current):
     
     new_locations = []
@@ -34,5 +35,6 @@ while True:
             print("The total weight does not match 713 kg. Try again!")
     else:
         print("Wrong guesses! The boxes have relocated.")
-        distance = relocate(distance, previous)
-        previous.update(distance)   
+        distance = relocate(distance) 
+
+        
