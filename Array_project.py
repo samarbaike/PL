@@ -2,6 +2,8 @@ from random import randrange
 distance = [randrange (1, 7) for i in range(3)]
 weight = [randrange (1, 300) for i in range(3)]
 
+while sum(weight) != 713:
+    weight = [randrange (1, 300) for i in range(3)]
 
 previous = set(distance)
 
@@ -17,4 +19,8 @@ def relocate(current, used):
                 break
     return new_locations
 
-
+while True:
+    g=[]
+    for i in range(3):
+        gues=int(input(f'Enter the location for box {i + 1} (1-7): '))
+        g.append(guess)
