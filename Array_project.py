@@ -28,3 +28,11 @@ while True:
     if guesses == box_distances:
         print("Congratulations! You found all the boxes.")
         print(f"Box weights: {box_weights}")
+    
+        if sum(box_weights) == 713:
+            print("The total weight is correct: 713 kg.")
+            break
+        else:
+            print("The total weight does not match 713 kg. Try again!")
+            weight = [randrange (1, 300) for i in range(3)]
+
