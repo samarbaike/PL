@@ -35,4 +35,6 @@ while True:
         else:
             print("The total weight does not match 713 kg. Try again!")
             weight = [randrange (1, 300) for i in range(3)]
-
+    else:
+        print("Wrong guesses! The boxes have relocated.")
+        distance = relocate(distance, previous)
