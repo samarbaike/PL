@@ -24,3 +24,7 @@ while True:
     for i in range(3):
         gues=int(input(f'Enter the location for box {i + 1} (1-7): '))
         g.append(guess)
+        
+    if guesses == box_distances:
+        print("Congratulations! You found all the boxes.")
+        print(f"Box weights: {box_weights}")
