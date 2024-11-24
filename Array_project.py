@@ -21,6 +21,7 @@ def relocate(current):
 while True:
     g=[]
     for i in range(3):
+        print(distance)
         gues=int(input(f'Enter the location for box {i + 1} (1-7): '))
         g.append(gues)
         
@@ -29,7 +30,8 @@ while True:
         print(f"Box weights: {weight}")
     
         if sum(weight) == 713:
-            print("The total weight is correct: 713 kg.")
+            print("The total weight is 713 kg, and this is exactly how much you were looking for.")
+            print('^%$*^%^^%$^&%^& &^%*^%$%^#(^&&* &^&^%$$)(*)(**(987')
             break
         else:
             print("The total weight does not match 713 kg. Try again!")
