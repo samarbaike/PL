@@ -20,7 +20,6 @@ def relocate(current):
 while True:
     g=[]
     for i in range(3):
-        print(distance)
         gues=int(input(f'Enter the location for box {i + 1} (1-7): '))
         g.append(gues)
         
