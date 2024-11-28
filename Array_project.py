@@ -4,15 +4,14 @@ distance = sample(range(1, 8), 3)
 weight = sample(range(1, 713), 3) 
 
 while sum(weight) != 713:
-    weight = [randrange (1, 300) for i in range(3)]
-
+    weight = sample(range(1, 713), 3)
 
 def relocate(current):
     
     new_locations = []
     for l in current:
         while True:
-            new = randrange(1, 7)
+            new = sample(range(1, 8), 3)
             if new not in current and new not in new_locations:
                 new_locations.append(new)
                 break
@@ -21,6 +20,7 @@ def relocate(current):
 while True:
     g=[]
     for i in range(3):
+        print(distance)
         gues=int(input(f'Enter the location for box {i + 1} (1-7): '))
         g.append(gues)
         
