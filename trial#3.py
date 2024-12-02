@@ -1,10 +1,7 @@
-import random
+ships=[3, 2, 2, 1, 1, 1, 1]
+for size in ships:
+    for i in range(size):
+        print(i)
 
-# Number of random coordinates to generate
-num_coordinates = 5
 
-# Generate a list of random coordinates
-coordinates = [(random.randint(0, 7), random.randint(0, 7)) for _ in range(num_coordinates)]
-
-print("Random coordinates:", coordinates)
 

@@ -23,7 +23,7 @@ Bonus improvement (optional): do not allow the player to shoot out of the battle
 """generating ships"""
 """the game itself"""
 """"""
-from random import sample
+import random
         
 
 def name(name):
@@ -41,4 +41,18 @@ def clear():
   
 
 def generate_ships():
-    one_cell=[sample(range(1, 7), 4), sample(range(1,7), 4)]
+    board=[[' ' for k in range(8)] for k in range(8)]
+    ships=[3, 2, 2, 1, 1, 1, 1]
+
+    
+    for size in ships:
+        alignment=random.choice([True, False])#True=horizontal / False=vertical
+        if alignment==True:
+            for i in range(size):
+                x=random.sample(1, 8)
+                y=random.sample(1, 8)
+                board[x+i][y]=='sh'
+                
+                    
+
+

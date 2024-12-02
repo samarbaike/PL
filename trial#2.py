@@ -1,5 +1,3 @@
-from random import sample
-
-one_cell=[sample(range(1, 7), 4), sample(range(1,7), 4)]
-
-print(one_cell)
+board=[['~' for k in range(8)] for k in range(8)]
+for row in board:
+    print(' '.join(row))
