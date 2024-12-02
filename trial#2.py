@@ -1,5 +1,5 @@
-a =[]
-a11=[int(a1) for a1 in input().split()]
-a.extend(a11)
+from random import sample
 
-print(a)
+one_cell=[sample(range(1, 7), 4), sample(range(1,7), 4)]
+
+print(one_cell)

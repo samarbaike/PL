@@ -23,7 +23,7 @@ Bonus improvement (optional): do not allow the player to shoot out of the battle
 """generating ships"""
 """the game itself"""
 """"""
-
+from random import sample
         
 
 def name(name):
@@ -38,3 +38,7 @@ def clear():
             a[0][0]=' '
             a[0][j]=j
     return print('\n'.join(' '.join(str(a[i][j]) for j in range(8)) for i in range(8)))
+  
+
+def generate_ships():
+    one_cell=[sample(range(1, 7), 4), sample(range(1,7), 4)]
