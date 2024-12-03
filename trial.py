@@ -3,7 +3,7 @@ def game():
     made_shots=[]
     name()
     print('The rules of game are as follows:')
-    print('Please enter coordinates based on 'Battlefield board', without exceeding required numbers(letters)')
+    print('Please enter coordinates based on Battlefield board, without exceeding required numbers(letters)')
     print('When entering letters, enter UPPER case letters)')
     print('Enter coordinates in following form: upper_case_letter+space+number(A 1)')
     clear()
