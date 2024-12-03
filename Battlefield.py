@@ -10,7 +10,8 @@ The marks on the field "miss", "hit", "sunk", as well as the empty cell - all of
 But how? The programmer of this game should think about this aspect.
 After each action, the screen must be cleared. Thus, each time the playing field will be displayed on a clean screen, instead of crawling down the console.
 After the victory, the number of shots that the player made is displayed on the screen. The computer must also ask the player whether to start another game. 
-If the player agrees, the game is repeated from the beginning. If the player refuses, then a sorted list of all players from best to worst is displayed on the screen and the program ends.                  
+If the player agrees, the game is repeated from the beginning. If the player refuses, then a sorted list of all players from best to worst is displayed on the screen and the 
+program ends.                  
 
 Bonus improvement (optional): it is required to make it so that not two digits are entered as the coordinates of the shot, but a letter and a digit. 
 For example, instead of (2;5), it should be entered (B;5).
@@ -24,12 +25,14 @@ Bonus improvement (optional): do not allow the player to shoot out of the battle
 """the game itself"""
 """"""
 import random
+import os
         
-
+#asking user's name
 def name():
     name=input('Please enter your name: ')
     return name
-    
+
+#creating battleboard    
 def clear():
     a = [['~' for k in range(8)] for k in range(8)]
     for i in range(8):
@@ -39,12 +42,12 @@ def clear():
             a[0][j]=j
     return print('\n'.join(' '.join(str(a[i][j]) for j in range(8)) for i in range(8)))
   
-
+#generating ships
 def generate_ships():
     board = [[' ' for _ in range(8)] for _ in range(8)]
     ships = [3, 2, 2, 1, 1, 1, 1]
 
-# Helper function to check if a ship and its surrounding area are clear
+
     def can_place_ship(board, x, y, size, h):
         sur=[-1, 0, 1]
         for i in range(size):
@@ -63,7 +66,7 @@ def generate_ships():
                         return False
         return True
 
-# Place ships
+
     for size in ships:
         place=False
         while not place:
@@ -86,7 +89,4 @@ def generate_ships():
                 place=True
     return board
 
-def game():
-    name()
-    print('The rules of game are as follows:')
-    print('You enter ')
+
