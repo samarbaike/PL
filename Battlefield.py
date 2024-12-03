@@ -27,21 +27,26 @@ Bonus improvement (optional): do not allow the player to shoot out of the battle
 import random
 import os
         
-#asking user's name
-def name():
-    name=input('Please enter your name: ')
-    return name
+
+
 
 #creating battleboard    
 def clear():
-    front = [['~' for k in range(8)] for k in range(8)]
+    default = [['~' for k in range(8)] for k in range(8)]
     for i in range(8):
-        front[i][0]=chr(64+i)
+        default[i][0]=chr(64+i)
         for j in range(8):
-            front[0][0]=' '
-            front[0][j]=j
+            default[0][0]=' '
+            default[0][j]=j
     return 
-  
+
+
+def clear_terminal():
+    """
+    Clears the terminal screen for a fresh display.
+    """
+    os.system('cls' if os.name == 'nt' else 'clear')  # For Windows ('cls') and others ('clear')
+
 #generating ships
 def generate_ships():
     back = [[' ' for _ in range(8)] for _ in range(8)]
@@ -89,4 +94,16 @@ def generate_ships():
                 place=True
     return back
 
+def user_board():
+    front = [['~' for k in range(8)] for k in range(8)]
+    for i in range(8):
+        front[i][0]=chr(64+i)
+        for j in range(8):
+            front[0][0]=' '
+            front[0][j]=j
+    return front
+
+def game():
+    name=input('Please, enter you name: ')
+    user_board()
 
