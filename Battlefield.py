@@ -110,23 +110,7 @@ def all_ships_sunk(back):
     return True
 
 
-def sink_whole_ship(x, y, back, front):
-    if back[x+1][y]=='O' and back[x+2][y]==' ':
-        back[x+1][y]=front[x+1][y]='●'
-        back[x][y]=front[x+1][y]='●'
-        return True
-    elif back[x-1][y]=='O'and back[x-2][y]==' ':
-        back[x-1][y]=front[x-1][y]='●'
-        back[x][y]=front[x][y]='●'
-        return True
-    elif back[x][y+1]=='O' and back[x][y+2]==' ':
-        back[x][y+1]=front[x][y+1]='●'
-        back[x][y]=front[x+1][y]='●'
-        return True
-    elif back[x][y-1]=='O'and back[x][y-2]==' ':
-        back[x][y-1]=front[x][y-1]='●'
-        back[x][y]=front[x][y]='●'
-        return True
+
 
 def user_input(back, front):
 
@@ -161,7 +145,6 @@ def user_input(back, front):
                         front[x][y]='O'
                         back[x][y]='O'
                         print('HIT')
-                        sink_whole_ship(x, y, back, front)
                         return True
                 else:
                     front[x][y]='X'
