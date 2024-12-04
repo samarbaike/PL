@@ -110,30 +110,43 @@ def all_ships_sunk(back):
     return True
 
 
+def sink_whole_ship(x, y, back, front):
+    if back[x+1][y]=='O' and back[x+2][y]==' ':
+        back[x+1][y]=front[x+1][y]='●'
+        back[x][y]=front[x+1][y]='●'
+        return True
+    elif back[x-1][y]=='O'and back[x-2][y]==' ':
+        back[x-1][y]=front[x-1][y]='●'
+        back[x][y]=front[x][y]='●'
+        return True
+    elif back[x][y+1]=='O' and back[x][y+2]==' ':
+        back[x][y+1]=front[x][y+1]='●'
+        back[x][y]=front[x+1][y]='●'
+        return True
+    elif back[x][y-1]=='O'and back[x][y-2]==' ':
+        back[x][y-1]=front[x][y-1]='●'
+        back[x][y]=front[x][y]='●'
+        return True
+
 def user_input(back, front):
 
     def totally_sunk(x, y, back):
         sur=[(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
         for ch_x, ch_y in sur:
             adj_x, adj_y = x + ch_x, y + ch_y
-            if 0 <= adj_x < 8 and 0 <= adj_y < 8 and back[adj_x][adj_y] == ' ':
-                return True
-            elif 0 <= adj_x < 8 and 0 <= adj_y < 8 and back[adj_x][adj_y] == 'O':
-                return True
-            else:
+            if 0 <= adj_x < 8 and 0 <= adj_y < 8 and back[adj_x][adj_y] == 's':
                 return False
+        return True
         
 
 
 
 
 
-
-
     while True:
-        shot = input('Enter shot coordinates(for inst: A1)').strip().upper()
+        shot = input('shot coordinates: ').strip().upper()
         if len(shot)==2 and shot[0] in 'ABCDEFG' and shot[1].isdigit():
-            x, y= str(ord(shot[0])-64) , shot[1]
+            x, y= ord(shot[0])-64 , int(shot[1])
             if front[x][y] in ['O', 'X', '●']:
                 print('you ALREADY SHOT there!')
                 print('Try again')
@@ -148,6 +161,7 @@ def user_input(back, front):
                         front[x][y]='O'
                         back[x][y]='O'
                         print('HIT')
+                        sink_whole_ship(x, y, back, front)
                         return True
                 else:
                     front[x][y]='X'
@@ -168,7 +182,6 @@ def game():
         clear_terminal()
         for row in front:
             print(' '.join(row))
-        print(name, ', make your shot!')
         if user_input(back, front):
             print("Let's go! Keep that pace.")
         else: 
@@ -177,15 +190,41 @@ def game():
     else:
         clear_terminal()
         print(f"Congrats, {name}! You sunk all the ships 'only' in {shots})")
+        leaderboard.append((shots, name))
     
 
     question=input('Would like to start new round?(yes/no)')
     if question=='yes':
         return game()
     elif question=='no':
-        sjfd
+        def find_max(list):
+            max_number=list[0][0]
+            for i in range(len(list)):
+                if list[i][0] >= max_number:
+                    max_number=list[i][0]
+                    max_player=list[i]
+            return max_player
+        
+        leaderboard=[]
+        l=[]
+        print('Leaderboard:')
+        for i in range(len(leaderboard)):
+            n=find_max(leaderboard)
+            l.append(n)
+            leaderboard.remove(n)
+            
+        for row in l:
+            print(' '.join(str(item) for item in row))
+
+        
+        print(' ')
+        print('Thanks, for playing the game!!!')
+        
     else:
         print('Invalid, respond using only "yes/no"')
+
+    
+game()
 
 
         

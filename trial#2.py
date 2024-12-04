@@ -1,16 +1,17 @@
-def user_board():
-    f = [['~' for k in range(8)] for k in range(8)]
-    for i in range(8):
-        f[i][0]=str(chr(64+i))
-        for j in range(8):
-            f[0][0]=' '
-            f[0][j]=str(j)
-    return f
+def find_max(list):
+    max_number=list[0][0]
+    for i in range(len(list)):
+        if list[i][0] >= max_number:
+            max_number=list[i][0]
+            max_player=list[i]
+    return max_player
 
-def game():
-    front=user_board()
-    for row in front:
-        print(' '.join (row))
-    return True
-
-game()
+leaderboard=[(13, 'samar'), (34, 'muhammed'), (43, 'baiaman')]
+l=[]
+print('Leaderboard:')
+for i in range(len(leaderboard)):
+    n=find_max(leaderboard)
+    l.append(n)
+    leaderboard.remove(n)
+for row in l:
+    print(' '.join(str(item) for item in row))
