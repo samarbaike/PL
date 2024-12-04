@@ -49,7 +49,7 @@ def clear_terminal():
 
 #generating ships
 def generate_ships():
-    back = [[' ' for _ in range(8)] for _ in range(8)]
+    b = [[' ' for _ in range(8)] for _ in range(8)]
     ships = [3, 2, 2, 1, 1, 1, 1]
 
 
@@ -83,25 +83,76 @@ def generate_ships():
                 x = random.randint(1, 8)
                 y = random.randint(1, 8)
             
-            if can_place_ship(back, x, y, size, alignment):
+            if can_place_ship(b, x, y, size, alignment):
                 for i in range(size):
                     if alignment=='h':
                         new_x, new_y=x+i, y
-                        back[new_x][new_y]='s' 
+                        b[new_x][new_y]='s' 
                     else:
                         new_x, new_y=x, y+i
-                        back[new_x][new_y]='s'
+                        b[new_x][new_y]='s'
                 place=True
-    return back
+    return b
 
 def user_board():
-    front = [['~' for k in range(8)] for k in range(8)]
+    f = [['~' for k in range(8)] for k in range(8)]
     for i in range(8):
-        front[i][0]=chr(64+i)
+        f[i][0]=str(chr(64+i))
         for j in range(8):
-            front[0][0]=' '
-            front[0][j]=j
-    return front
+            f[0][0]=' '
+            f[0][j]=str(j)
+    return f
+
+def all_ships_sunk(back):
+    for row in back:
+        if 's' in row:
+            return False
+    return True
+
+
+def user_input(back, front):
+
+    def totally_sunk(x, y, back):
+        sur=[(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+        for ch_x, ch_y in sur:
+            adj_x, adj_y = x + ch_x, y + ch_y
+            if 0 <= adj_x < 8 and 0 <= adj_y < 8 and back[adj_x][adj_y] == ' ':
+                return True
+            elif 0 <= adj_x < 8 and 0 <= adj_y < 8 and back[adj_x][adj_y] == 'O':
+                return True
+            else:
+                return False
+        
+
+
+    while True:
+        shot = input('Enter shot coordinates(for inst: A1)').strip().upper()
+        if len(shot)==2 and shot[0] in 'ABCDEFG' and shot[1].isdigit():
+            x, y= ord(shot[0])-64 , int(shot[1]) 
+            if front[x][y] in ['O', 'X', '●']:
+                print('you ALREADY SHOT there!')
+                print('Try again')
+            else: 
+                if back[x][y]=='s':
+                    if totally_sunk(x, y, back):
+                        front[x][y]='●'
+                        back[x][y]='O'
+                        print('HIT')
+                        return True
+                    else:
+                        front[x][y]='O'
+                        back[x][y]='O'
+                        print('HIT')
+                        return True
+                else:
+                    front[x][y]='X'
+                    print('miss')
+                    return False
+        else:
+            print('Invalid input, try again')
+
+    
+        
 
 def game():
     name=input('Please, enter you name: ')
