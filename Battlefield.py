@@ -53,7 +53,7 @@ def generate_ships():
     ships = [3, 2, 2, 1, 1, 1, 1]
 
 
-    def can_place_ship(back, x, y, size, h):
+    def can_place_ship(back, x, y, size, alignment):
         sur=[-1, 0, 1]
         for i in range(size):
             if alignment == 'h':
@@ -125,10 +125,15 @@ def user_input(back, front):
         
 
 
+
+
+
+
+
     while True:
         shot = input('Enter shot coordinates(for inst: A1)').strip().upper()
         if len(shot)==2 and shot[0] in 'ABCDEFG' and shot[1].isdigit():
-            x, y= ord(shot[0])-64 , int(shot[1]) 
+            x, y= str(ord(shot[0])-64) , shot[1]
             if front[x][y] in ['O', 'X', '●']:
                 print('you ALREADY SHOT there!')
                 print('Try again')
@@ -155,6 +160,33 @@ def user_input(back, front):
         
 
 def game():
-    name=input('Please, enter you name: ')
-    user_board()
+    name=input('Enter your name: ')
+    back=generate_ships()
+    front=user_board()
+    shots=0
+    while not all_ships_sunk(back):
+        clear_terminal()
+        for row in front:
+            print(' '.join(row))
+        print(name, ', make your shot!')
+        if user_input(back, front):
+            print("Let's go! Keep that pace.")
+        else: 
+            print('Think, monki, think')
+        shots+=1
+    else:
+        clear_terminal()
+        print(f"Congrats, {name}! You sunk all the ships 'only' in {shots})")
+    
+
+    question=input('Would like to start new round?(yes/no)')
+    if question=='yes':
+        return game()
+    elif question=='no':
+        sjfd
+    else:
+        print('Invalid, respond using only "yes/no"')
+
+
+        
 
