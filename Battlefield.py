@@ -121,8 +121,22 @@ def user_input(back, front):
             if 0 <= adj_x < 8 and 0 <= adj_y < 8 and back[adj_x][adj_y] == 's':
                 return False
         return True
-        
+    
+    def sink_other_parts(x, y, back, front):
+        sur=[(-1, 0), (0, -1), (0, 1), (1, 0)]
+        for chx, chy in sur:
+            arx, ary = x + chx, y + chy
+            arrx, arry = arx + chx, ary + chy
+            if 0 <= arrx < 8 and 0 <= arry < 8 and back[arx][ary] == 'O' and back[arrx][arry]=='s':
+                front[arx][ary]='●'
+            elif 0 <= arrx < 8 and 0 <= arry < 8 and back[arx][ary] == 'O' and back[arrx][arry]==' ':
+                front[arx][ary]='●'
+            elif 0 <= arrx < 8 and 0 <= arry < 8 and back[arx][ary] == 'O' and back[arrx][arry]=='O':
+                front[arx][ary]='●'
+                front[arrx][arry]='●'
+        return front
 
+   
 
 
 
@@ -139,11 +153,13 @@ def user_input(back, front):
                     if totally_sunk(x, y, back):
                         front[x][y]='●'
                         back[x][y]='O'
+                        sink_other_parts(x, y, back, front)
                         print('HIT')
                         return True
                     else:
                         front[x][y]='O'
                         back[x][y]='O'
+                        sink_other_parts(x, y, back, front)
                         print('HIT')
                         return True
                 else:
@@ -157,6 +173,7 @@ def user_input(back, front):
         
 
 def game():
+    leaderboard=[]
     name=input('Enter your name: ')
     back=generate_ships()
     front=user_board()
@@ -172,7 +189,7 @@ def game():
         shots+=1
     else:
         clear_terminal()
-        print(f"Congrats, {name}! You sunk all the ships 'only' in {shots})")
+        print(f"Congrats, {name}! You sunk all the ships 'only' in {shots} shots :)")
         leaderboard.append((shots, name))
     
 
