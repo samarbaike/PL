@@ -210,6 +210,7 @@ def game():
     elif question=='no':
         l=[]
         print('Leaderboard:')
+        print(' ')
         for i in range(len(leaderboard)):
             n=find_max(leaderboard)
             l.append(n)
