@@ -49,7 +49,7 @@ def clear_terminal():
 
 #generating ships
 def generate_ships():
-    b = [[' ' for _ in range(8)] for _ in range(8)]
+    b = [[' ' for _ in range(9)] for _ in range(9)]
     ships = [3, 2, 2, 1, 1, 1, 1]
 
 
@@ -140,31 +140,34 @@ def user_input(back, front):
 
 
 
-
+    result=" "
     while True:
+        print(result)
         shot = input('shot coordinates: ').strip().upper()
         if len(shot)==2 and shot[0] in 'ABCDEFG' and shot[1].isdigit():
             x, y= ord(shot[0])-64 , int(shot[1])
             if front[x][y] in ['O', 'X', '●']:
                 print('you ALREADY SHOT there!')
                 print('Try again')
+                return True
             else: 
                 if back[x][y]=='s':
                     if totally_sunk(x, y, back):
                         front[x][y]='●'
                         back[x][y]='O'
                         sink_other_parts(x, y, back, front)
-                        print('HIT')
+                        result="let's gooo!"
                         return True
                     else:
                         front[x][y]='O'
                         back[x][y]='O'
                         sink_other_parts(x, y, back, front)
-                        print('HIT')
+                        result='got it'
                         return True
                 else:
                     front[x][y]='X'
                     print('miss')
+                    result="missed. Think, bro, think"
                     return False
         else:
             print('Invalid input, try again')
@@ -173,6 +176,14 @@ def user_input(back, front):
         
 
 def game():
+    def find_max(list):
+        max_number=list[0][0]
+        for i in range(len(list)):
+            if list[i][0] >= max_number:
+                max_number=list[i][0]
+                max_player=list[i]
+        return max_player
+
     leaderboard=[]
     name=input('Enter your name: ')
     back=generate_ships()
@@ -197,15 +208,6 @@ def game():
     if question=='yes':
         return game()
     elif question=='no':
-        def find_max(list):
-            max_number=list[0][0]
-            for i in range(len(list)):
-                if list[i][0] >= max_number:
-                    max_number=list[i][0]
-                    max_player=list[i]
-            return max_player
-        
-        leaderboard=[]
         l=[]
         print('Leaderboard:')
         for i in range(len(leaderboard)):
