@@ -142,7 +142,7 @@ def user_input(back, front):
 
     result=" "
     while True:
-        print(result)
+        print(f"\n{result}\n")
         shot = input('shot coordinates: ').strip().upper()
         if len(shot)==2 and shot[0] in 'ABCDEFG' and shot[1].isdigit():
             x, y= ord(shot[0])-64 , int(shot[1])
@@ -175,7 +175,7 @@ def user_input(back, front):
     
         
 
-def game():
+def game(leaderboard):
     def find_max(list):
         max_number=list[0][0]
         for i in range(len(list)):
@@ -184,7 +184,7 @@ def game():
                 max_player=list[i]
         return max_player
 
-    leaderboard=[]
+    
     name=input('Enter your name: ')
     back=generate_ships()
     front=user_board()
@@ -204,9 +204,9 @@ def game():
         leaderboard.append((shots, name))
     
 
-    question=input('Would like to start new round?(yes/no)')
+    question=input('Would like to start new round?(yes/no): ')
     if question=='yes':
-        return game()
+        return game(leaderboard)
     elif question=='no':
         l=[]
         print('Leaderboard:')
@@ -221,13 +221,16 @@ def game():
 
         
         print(' ')
-        print('Thanks, for playing the game!!!')
+        print(name, ', thanks, for playing the game!!!')
+        print('hope you enjoyed it!')
         
     else:
         print('Invalid, respond using only "yes/no"')
 
-    
-game()
+
+
+leaderboard=[]
+game(leaderboard)
 
 
         
