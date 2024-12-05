@@ -1,17 +1,12 @@
-def find_max(list):
-    max_number=list[0][0]
-    for i in range(len(list)):
-        if list[i][0] >= max_number:
-            max_number=list[i][0]
-            max_player=list[i]
-    return max_player
+n=0
+back=int(input())
+front=int(input())
+while True:
+    if back<front:
+        n+=1
+    m=int(input())
+    back, front=front, m
+    if m==0:
+        break
 
-leaderboard=[(13, 'samar'), (34, 'muhammed'), (43, 'baiaman')]
-l=[]
-print('Leaderboard:')
-for i in range(len(leaderboard)):
-    n=find_max(leaderboard)
-    l.append(n)
-    leaderboard.remove(n)
-for row in l:
-    print(' '.join(str(item) for item in row))
+print(n)

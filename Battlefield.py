@@ -49,7 +49,7 @@ def clear_terminal():
 
 #generating ships
 def generate_ships():
-    b = [[' ' for _ in range(8)] for _ in range(8)]
+    b = [[' ' for _ in range(9)] for _ in range(9)]
     ships = [3, 2, 2, 1, 1, 1, 1]
 
 
@@ -121,34 +121,53 @@ def user_input(back, front):
             if 0 <= adj_x < 8 and 0 <= adj_y < 8 and back[adj_x][adj_y] == 's':
                 return False
         return True
-        
+    
+    def sink_other_parts(x, y, back, front):
+        sur=[(-1, 0), (0, -1), (0, 1), (1, 0)]
+        for chx, chy in sur:
+            arx, ary = x + chx, y + chy
+            arrx, arry = arx + chx, ary + chy
+            if 0 <= arrx < 8 and 0 <= arry < 8 and back[arx][ary] == 'O' and back[arrx][arry]=='s':
+                front[arx][ary]='●'
+            elif 0 <= arrx < 8 and 0 <= arry < 8 and back[arx][ary] == 'O' and back[arrx][arry]==' ':
+                front[arx][ary]='●'
+            elif 0 <= arrx < 8 and 0 <= arry < 8 and back[arx][ary] == 'O' and back[arrx][arry]=='O':
+                front[arx][ary]='●'
+                front[arrx][arry]='●'
+        return front
+
+   
 
 
 
-
-
+    result=" "
     while True:
+        print(f"\n{result}\n")
         shot = input('shot coordinates: ').strip().upper()
         if len(shot)==2 and shot[0] in 'ABCDEFG' and shot[1].isdigit():
             x, y= ord(shot[0])-64 , int(shot[1])
             if front[x][y] in ['O', 'X', '●']:
                 print('you ALREADY SHOT there!')
                 print('Try again')
+                return True
             else: 
                 if back[x][y]=='s':
                     if totally_sunk(x, y, back):
                         front[x][y]='●'
                         back[x][y]='O'
-                        print('HIT')
+                        sink_other_parts(x, y, back, front)
+                        result="let's gooo!"
                         return True
                     else:
                         front[x][y]='O'
                         back[x][y]='O'
-                        print('HIT')
+                        sink_other_parts(x, y, back, front)
+                        result='got it'
                         return True
                 else:
                     front[x][y]='X'
                     print('miss')
+                    result="missed. Think, bro, think"
                     return False
         else:
             print('Invalid input, try again')
@@ -156,7 +175,16 @@ def user_input(back, front):
     
         
 
-def game():
+def game(leaderboard):
+    def find_max(list):
+        max_number=list[0][0]
+        for i in range(len(list)):
+            if list[i][0] >= max_number:
+                max_number=list[i][0]
+                max_player=list[i]
+        return max_player
+
+    
     name=input('Enter your name: ')
     back=generate_ships()
     front=user_board()
@@ -172,25 +200,17 @@ def game():
         shots+=1
     else:
         clear_terminal()
-        print(f"Congrats, {name}! You sunk all the ships 'only' in {shots})")
+        print(f"Congrats, {name}! You sunk all the ships 'only' in {shots} shots :)")
         leaderboard.append((shots, name))
     
 
-    question=input('Would like to start new round?(yes/no)')
+    question=input('Would like to start new round?(yes/no): ')
     if question=='yes':
-        return game()
+        return game(leaderboard)
     elif question=='no':
-        def find_max(list):
-            max_number=list[0][0]
-            for i in range(len(list)):
-                if list[i][0] >= max_number:
-                    max_number=list[i][0]
-                    max_player=list[i]
-            return max_player
-        
-        leaderboard=[]
         l=[]
         print('Leaderboard:')
+        print(' ')
         for i in range(len(leaderboard)):
             n=find_max(leaderboard)
             l.append(n)
@@ -201,14 +221,13 @@ def game():
 
         
         print(' ')
-        print('Thanks, for playing the game!!!')
+        print(name, ', thanks, for playing the game!!!')
+        print('hope you enjoyed it!')
         
     else:
         print('Invalid, respond using only "yes/no"')
 
-    
-game()
 
 
-        
-
+leaderboard=[]
+game(leaderboard)
