@@ -14,15 +14,17 @@ def q2():
     series = samar.Series(data, index=index)
     return print(series)
 
+
+
 '''
 q3: Write a program to create a series object using the dictionary which store the number of students 
 in fresh batch groups ( MatMIE, Mat DAIS, COMIE, COMEC)?'''
 
 def q3():
-    d = {'MatMIE': int(input()), 
-         'Mat DAIS': int(input()), 
-         'COMIE': int(input()), 
-         'COMEC': int(input())
+    d = {'MatMIE': 45, 
+         'Mat DAIS': 550, 
+         'COMIE': 60, 
+         'COMEC': 40
          }
     series_object=samar.Series(d)
     return print(series_object)
@@ -68,4 +70,7 @@ def q5():
     return print(sorted)
 
 
-q5()
+for i, j in zip([2, 3, 4, 5], [q2, q3, q4, q5]):
+    print(f"Question {i}")
+    j()
+    print(' ')
