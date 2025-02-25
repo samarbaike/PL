@@ -1,29 +1,26 @@
-from telegram import Update
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+import asyncio
+from aiogram import Bot, Dispatcher, types
+from aiogram.types import Message
+from aiogram.filters import Command
 
-# Replace 'YOUR_API_TOKEN' with the token you got from BotFather
-API_TOKEN = 8027658252:AAH53Ut2uIkZsTyztyivDssIls4-mQ3hZC0
+# Initialize bot with token
+TOKEN = "8027658252:AAH53Ut2uIkZsTyztyivDssIls4-mQ3hZC0"
+bot = Bot(token=TOKEN)
+dp = Dispatcher()
 
-def start(update: Update, context: CallbackContext):
-    update.message.reply_text("Hello! I am your bot. How can I help you? 😊")
+# Command handler for /start
+@dp.message(Command("start"))
+async def start_command(message: Message):
+    await message.answer("Hello! I am your Telegram bot 🤖")
 
-def echo(update: Update, context: CallbackContext):
-    update.message.reply_text(update.message.text)
+# Echo handler (repeats user messages)
+@dp.message()
+async def echo_message(message: Message):
+    await message.answer(f"You said: {message.text}")
 
-def main():
-    # Set up the bot with the API token
-    updater = Updater(API_TOKEN)
+# Start the bot
+async def main():
+    await dp.start_polling(bot)
 
-    # Get the dispatcher to register handlers
-    dp = updater.dispatcher
-
-    # Add handlers for different commands and messages
-    dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
-
-    # Start the bot
-    updater.start_polling()
-    updater.idle()
-
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    asyncio.run(main())
